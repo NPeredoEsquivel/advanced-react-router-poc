@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function EditEvent() {
-  return <div>EditEvent</div>;
+export default function EditEventPage() {
+  return <div>EditEventPage</div>;
 }
