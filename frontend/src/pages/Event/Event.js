@@ -3,10 +3,6 @@ import EventsList from "../../components/EventList/EventsList";
 
 function EventsPage() {
   const data = useLoaderData();
-
-  if (data.isError) {
-    return <p>{data.message}</p>;
-  }
   const events = data.events;
 
   return <EventsList events={events} />;
@@ -23,8 +19,7 @@ export const loader = async () => {
     }); */
     throw json({ message: "Could not fetch events" }, { status: 500 });
   } else {
-    const resData = await response.json();
-    return resData;
+    return await response.json();
   }
 };
 
