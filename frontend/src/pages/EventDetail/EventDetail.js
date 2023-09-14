@@ -45,11 +45,11 @@ const loadEvent = async (id) => {
   }
 };
 
-export const loader = ({ params }) => {
+export const loader = async ({ params }) => {
   const eventId = params.eventId;
 
   return defer({
-    events: loadEvents(),
+    events: await loadEvents(),
     event: loadEvent(eventId),
   });
 };
