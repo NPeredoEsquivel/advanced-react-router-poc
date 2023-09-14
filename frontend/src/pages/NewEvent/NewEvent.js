@@ -23,9 +23,12 @@ export const action = async ({ request, params }) => {
     body: JSON.stringify(eventData),
   });
 
+  if (response.status === 422) {
+    return response;
+  }
+
   if (!response.ok) {
-    console.log("response", response);
-    throw json({ message: "Couldnt send data" }, { statue: 500 });
+    throw json({ message: "Couldnt send data" }, { status: 500 });
   }
 
   return redirect("/events");
