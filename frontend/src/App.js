@@ -33,11 +33,11 @@ const router = createBrowserRouter([
             path: ":eventId",
             id: "event-detail",
             loader: eventDetailLoader,
-            action: deleteEventAction,
             children: [
               {
                 index: true,
                 element: <EventDetailPage />,
+                action: deleteEventAction,
               },
               { path: "edit", element: <EditEventPage /> },
             ],
