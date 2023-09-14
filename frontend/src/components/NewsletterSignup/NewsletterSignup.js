@@ -12,7 +12,6 @@ function NewsletterSignup() {
   };
 
   useEffect(() => {
-    console.log(state, data);
     if (state === "idle" && data && data.message) {
       window.alert(data.message);
       setEmail("");
