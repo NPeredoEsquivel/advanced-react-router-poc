@@ -16,7 +16,6 @@ export const action = async ({ request }) => {
   }
 
   const data = await request.formData();
-  console.log(data);
   const userData = {
     email: data.get("email"),
     password: data.get("password"),
