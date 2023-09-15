@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import EventsList from "../../components/EventList/EventsList";
 import loadEvents from "../../utils/loaders";
+import { getAuthToken } from "../../utils/auth";
 
 export default function EventDetailPage() {
   const { event, events } = useRouteLoaderData("event-detail");
@@ -40,7 +41,6 @@ const loadEvent = async (id) => {
     throw json({ message: "Could not fetch the event" }, { code: 500 });
   } else {
     const resData = await response.json();
-    console.log(resData.event);
     return resData.event;
   }
 };
@@ -49,8 +49,8 @@ export const loader = async ({ params }) => {
   const eventId = params.eventId;
 
   return defer({
-    events: await loadEvents(),
-    event: loadEvent(eventId),
+    events: loadEvents(),
+    event: await loadEvent(eventId),
   });
 };
 
@@ -59,6 +59,9 @@ export const action = async ({ params, request }) => {
     `http://localhost:8080/events/${params.eventId}`,
     {
       method: request.method,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
     }
   );
 
