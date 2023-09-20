@@ -6,6 +6,7 @@ import {
   useSubmit,
 } from "react-router-dom";
 import MainNavigation from "../../components/MainNavigation/MainNavigation";
+import { getTokenDuration } from "../../utils/auth";
 
 export default function Root() {
   const navigation = useNavigation();
@@ -17,9 +18,16 @@ export default function Root() {
       return;
     }
 
+    if (token === "EXPIRED_TOKEN") {
+      submit(null, { action: "/logout", method: "post" });
+      return;
+    }
+
+    const tokenDuration = getTokenDuration();
+
     setTimeout(() => {
       submit(null, { action: "/logout", method: "post" });
-    }, 60 * 60 * 1000);
+    }, tokenDuration);
   }, [token, submit]);
 
   return (
