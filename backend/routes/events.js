@@ -11,7 +11,6 @@ const {
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
-  console.log("on main route", req.token);
   try {
     const events = await getAll();
     setTimeout(() => {
@@ -107,9 +106,7 @@ router.patch("/:id", async (req, res, next) => {
 });
 
 router.delete("/:id", async (req, res, next) => {
-  console.log("Im accessing here");
   try {
-    console.log("req.token", req.token);
     await remove(req.params.id);
     res.json({ message: "Event deleted." });
   } catch (error) {
