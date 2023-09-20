@@ -17,12 +17,16 @@ import { action as manageEvent } from "./components/EventForm/EventForm";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication/Authentication";
+import { action as logoutAction } from "./pages/Logout/Logout";
+import { tokenLoader, checkAuthLoader } from "./utils/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: "root",
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -44,16 +48,30 @@ const router = createBrowserRouter([
                 element: <EventDetailPage />,
                 action: deleteEventAction,
               },
-              { path: "edit", element: <EditEventPage />, action: manageEvent },
+              {
+                path: "edit",
+                element: <EditEventPage />,
+                action: manageEvent,
+                loader: checkAuthLoader,
+              },
             ],
           },
-          { path: "new", element: <NewEventPage />, action: manageEvent },
+          {
+            path: "new",
+            element: <NewEventPage />,
+            action: manageEvent,
+            loader: checkAuthLoader,
+          },
         ],
       },
       {
         path: "auth",
         element: <AuthenticationPage />,
         action: authAction,
+      },
+      {
+        path: "/logout",
+        action: logoutAction,
       },
       {
         path: "newsletter",

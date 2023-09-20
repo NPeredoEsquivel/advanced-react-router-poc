@@ -12,7 +12,6 @@ const loadEvents = async () => {
     throw json({ message: "Could not fetch events" }, { status: 500 });
   } else {
     const resData = await response.json();
-    console.log(resData.events);
     return resData.events;
   }
 };
